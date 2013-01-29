@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>saveActiveFile</string>
+	<key>command</key>
+	<string>#!/bin/bash
+
+TPROLOG=${TM_PROLOG:-yap}
+
+if [ "$TPROLOG" == "yap" ]; then 
+    TP_FILE="l"
+elif [ "$TPROLOG" == "swipl" ]; then 
+    TP_FILE="s"
+fi
+    
+osascript &lt;&lt;- APPLESCRIPT
+tell application "Terminal"
+	launch
+	set allWindows to number of windows
+	if allWindows is 0 then
+		do script "clear; cd \"${TM_DIRECTORY}\"; ${TPROLOG} -${TP_FILE} \"${TM_FILEPATH}\""
+	else
+		set found to false
+		repeat with i from 1 to allWindows
+			set allTabs to number of tabs of window i
+			if (allTabs &gt; 0) then
+				repeat with j from 1 to allTabs
+					set tabProcs to processes of tab j of window i
+					set theProc to (end of tabProcs)
+					if theProc is "${TPROLOG}" then
+						set found to true
+						exit repeat
+					end if
+				end repeat
+			else
+				set winProcs to processes of window i
+				set theProc to (end of winProcs)
+				if theProc is "${TPROLOG}" then
+					set found to true
+					exit repeat
+				end if
+			end if
+			
+			if found = true then
+				exit repeat
+			end if
+		end repeat
+		
+		if found = false then
+			set currentTab to (selected tab of (get front window))
+			set currentTab to (do script "cd \"${TM_DIRECTORY}\"; ${TPROLOG}")
+            set i to index of front window
+		else
+			set currentTab to tab j of window i
+		end if
+		
+		do script "consult('${TM_FILEPATH}')." in currentTab
+		
+        set frontmost of window i to true
+	end if
+	activate
+end tell
+APPLESCRIPT
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>@C</string>
+	<key>name</key>
+	<string>Consult in Prolog</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>discard</string>
+	<key>scope</key>
+	<string>source.prolog</string>
+	<key>semanticClass</key>
+	<string>process.run.prolog</string>
+	<key>uuid</key>
+	<string>189FA2B3-2134-4144-9096-CB87B02D7A47</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>
