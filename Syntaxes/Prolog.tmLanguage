@@ -4,6 +4,9 @@
 <dict>
 	<key>fileTypes</key>
 	<array>
+		<string>pl</string>
+		<string>lp</string>
+		<string>prolog</string>
 		<string>src</string>
 	</array>
 	<key>keyEquivalent</key>
@@ -108,6 +111,18 @@
 		</dict>
 		<dict>
 			<key>match</key>
+			<string>:~</string>
+			<key>name</key>
+			<string>keyword.operator.definition.weak.prolog</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>--&gt;</string>
+			<key>name</key>
+			<string>keyword.operator.definition.dcg.prolog</string>
+		</dict>
+		<dict>
+			<key>match</key>
 			<string>]</string>
 			<key>name</key>
 			<string>punctuation.list.bracket.right.prolog</string>
@@ -132,6 +147,18 @@
 		</dict>
 		<dict>
 			<key>match</key>
+			<string>\{</string>
+			<key>name</key>
+			<string>punctuation.aggregate.bracket.left.prolog</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\}</string>
+			<key>name</key>
+			<string>punctuation.aggregate.bracket.right.prolog</string>
+		</dict>
+		<dict>
+			<key>match</key>
 			<string>\b[A-Z_][a-zA-Z0-9_]*\b</string>
 			<key>name</key>
 			<string>variable.other.prolog</string>
@@ -147,6 +174,36 @@
 			<string>\b[a-z][a-zA-Z0-9_]*\b</string>
 			<key>name</key>
 			<string>constant.other.symbol.prolog</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>\#script\s?\(python\)</string>
+			<key>contentName</key>
+			<string>source.python.embedded.prolog</string>
+			<key>end</key>
+			<string>\#end\.</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>source.python</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>\#script\s?\(lua\)</string>
+			<key>contentName</key>
+			<string>source.lua.embedded.prolog</string>
+			<key>end</key>
+			<string>\#end\.</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>source.lua</string>
+				</dict>
+			</array>
 		</dict>
 	</array>
 	<key>scopeName</key>

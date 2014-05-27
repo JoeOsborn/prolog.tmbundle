@@ -1,6 +1,6 @@
 # Installation
 
-You can install this bundle in TextMate by opening the preferences and going to the bundles tab. After installation it will be automatically updated for you.
+You can install this bundle in TextMate by moving this folder to `~/Application Support/Avian/Pristine Copy`
 
 # General
 
